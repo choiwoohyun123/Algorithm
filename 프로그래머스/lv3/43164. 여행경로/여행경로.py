@@ -8,13 +8,13 @@ def solution(tickets):
     for a in routes:
         routes[a].sort(reverse=True)
 
-    start = ['ICN']
+    stack = ['ICN']
 
-    while start:
-        top = start[-1]
+    while stack:
+        top = stack[-1]
         if not top in routes or not routes[top]: # 현재 top 출발 도시에서 갈 수 있는 도착 도시가 없는 경우를 체크
-            answer.append(start.pop())
+            answer.append(stack.pop())
         else:                                    # 출발 도시에서 갈 수 있는 도착 도시가 있는 경우
-            start.append(routes[top].pop()) 
+            stack.append(routes[top].pop()) 
 
     return answer[::-1]
