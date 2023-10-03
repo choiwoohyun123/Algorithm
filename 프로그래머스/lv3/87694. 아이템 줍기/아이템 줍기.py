@@ -18,8 +18,6 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
     dy = [0, 1, 0, -1]
     
     q = deque([(characterX * 2, characterY * 2)])
-    visited = [[False] * 102 for i in range(102)]
-    visited[characterX * 2][characterY * 2] = True
     graph[characterX * 2][characterY * 2] = 0
 
     
@@ -34,7 +32,6 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
         
         if graph[nx][ny] == 1:
           q.append((nx, ny))
-
           graph[nx][ny] = graph[x][y] + 1
           
             
