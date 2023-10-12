@@ -2,7 +2,6 @@ from itertools import permutations
 
 def solution(numbers):
     answer = 0
-    numbers_li = []
     
     repeat_check = []
     for i in range(1, len(numbers) + 1):
