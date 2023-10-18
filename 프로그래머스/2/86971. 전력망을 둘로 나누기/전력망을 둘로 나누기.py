@@ -1,42 +1,38 @@
 from collections import deque
 import copy
 
-def bfs(start, graph, n):
-    visited = [False] * (n + 1)
-    q = deque([start])
-    visited[start] = True
-    count = 1
-    
-    while q:
-        current = q.popleft()
-        for neighbor in graph[current]:
-            if not visited[neighbor]:
-                visited[neighbor] = True
-                q.append(neighbor)
-                count += 1
-                
-    return count
-
 def solution(n, wires):
-    answer = float('inf')
+    answer = -1
     graph = [[] for _ in range(n + 1)]
+    abs_li = []
     
-    for a, b in wires:
-        graph[a].append(b)
-        graph[b].append(a)
     
+    for i in wires:
+        graph[i[0]].append(i[1])
+        graph[i[1]].append(i[0])
+    
+    graph_temp = copy.deepcopy(graph)
+    wires_temp = copy.deepcopy(wires)
     for cut_line in wires:
-        graph_temp = copy.deepcopy(graph)
-        graph_temp[cut_line[0]].remove(cut_line[1])
-        graph_temp[cut_line[1]].remove(cut_line[0])
+        visited = [False] * n
+        graph = copy.deepcopy(graph_temp)
+        wires = copy.deepcopy(wires_temp)
+        graph[cut_line[0]].remove(cut_line[1])
+        graph[cut_line[1]].remove(cut_line[0])
+        wires.remove(cut_line)
         
-        # 첫 번째 그래프의 연결된 송전탑 개수 계산
-        count1 = bfs(cut_line[0], graph_temp, n)
-        # 전체 송전탑 개수에서 첫 번째 그래프의 송전탑 개수를 빼면 두 번째 그래프의 송전탑 개수가 됩니다.
-        count2 = n - count1
+        q = deque([wires[0][0]])
         
-        # 두 전력망의 송전탑 개수 차이 계산
-        difference = abs(count1 - count2)
-        answer = min(answer, difference)
+        while q:
+            s = q.popleft()
+            visited[s - 1] = True
+            for d in graph[s]:
+                if not visited[d - 1]:
+                    visited[d - 1] = True
+                    q.append(d)
+                    
+        abs_li.append(abs(visited.count(True) - visited.count(False)))
             
-    return answer
+
+        
+    return min(abs_li)
