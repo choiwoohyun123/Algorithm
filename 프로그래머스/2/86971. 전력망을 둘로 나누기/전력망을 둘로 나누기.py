@@ -12,14 +12,11 @@ def solution(n, wires):
         graph[i[1]].append(i[0])
     
     graph_temp = copy.deepcopy(graph)
-    wires_temp = copy.deepcopy(wires)
     for cut_line in wires:
         visited = [False] * n
         graph = copy.deepcopy(graph_temp)
-        wires = copy.deepcopy(wires_temp)
         graph[cut_line[0]].remove(cut_line[1])
         graph[cut_line[1]].remove(cut_line[0])
-        wires.remove(cut_line)
         
         q = deque([wires[0][0]])
         
