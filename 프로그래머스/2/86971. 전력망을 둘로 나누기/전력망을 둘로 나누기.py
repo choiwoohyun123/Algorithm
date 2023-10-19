@@ -2,7 +2,6 @@ from collections import deque
 import copy
 
 def solution(n, wires):
-    answer = -1
     graph = [[] for _ in range(n + 1)]
     abs_li = []
     
