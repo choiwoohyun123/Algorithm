@@ -4,7 +4,7 @@ def solution(today, terms, privacies):
     t_year, t_month, t_day = map(int, today.split("."))
 
     for i in terms:
-        terms_type, period = map(str, i.split())
+        terms_type, period = i.split()
         terms_dic[terms_type] = int(period)
         
     for idx, privacy in enumerate(privacies):
